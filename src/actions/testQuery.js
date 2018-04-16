@@ -9,7 +9,9 @@ export function testQuery(
   return function(dispatch) {
     dispatch({ type: `${type}_PENDING` });
     // Double-check web3's status
-    if (web3 && typeof web3 !== 'undefined') {
+    //if (web3 && typeof web3 !== 'undefined') {
+    // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+    if (typeof web3 !== 'undefined' && web3.currentProvider && web3.currentProvider.isMetaMask) {
       // Using truffle-contract create needed contract objects and set providers
       const queryTest = contract(QueryTest);
       queryTest.setProvider(web3.currentProvider);
